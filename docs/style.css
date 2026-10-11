@@ -211,6 +211,73 @@ h1 {
   margin: 0.6rem 0 0.3rem;
   line-height: 1.2;
 }
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+/* Mugshots */
+.mugshot {
+  position: relative;
+  flex: 0 0 auto;
+  width: 68px;
+  height: 84px;
+  margin-top: 0.5rem;
+  background: #2a2520;
+  border: 4px solid #f4efe2;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.45);
+  transform: rotate(3deg);
+}
+.mugshot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  filter: grayscale(1) contrast(1.15) sepia(0.25);
+}
+.mugshot::after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 10px;
+  width: 9px;
+  height: 30px;
+  border: 2px solid #8b8b8b;
+  border-radius: 6px;
+  background: transparent;
+}
+.mugshot-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 36%, #4a433a 0 17%, transparent 18%),
+    radial-gradient(ellipse at 50% 100%, #4a433a 0 40%, transparent 41%),
+    #2a2520;
+}
+.mugshot-empty span {
+  font-family: var(--typewriter);
+  font-size: 0.5rem;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper-dark);
+  background: rgba(0,0,0,0.55);
+  padding: 2px 3px;
+  margin-top: 40%;
+}
+.mugshot-lg {
+  width: 120px;
+  height: 150px;
+  margin: 0;
+  transform: rotate(-2deg);
+}
+.mugshot-lg .mugshot-empty span, .mugshot-lg span { font-size: 0.7rem; }
+
 .meta {
   font-size: 0.85rem;
   color: var(--ink-soft);
@@ -348,6 +415,22 @@ mark {
   border-top: 1px dashed rgba(0,0,0,0.4);
   padding-top: 1rem;
 }
+.dossier-head {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.4rem;
+  margin: 1.4rem 0 1.2rem;
+}
+.dossier-head h2 { margin: 0; }
+.wiki-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: var(--typewriter);
+  color: var(--blood);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--blood);
+}
+.wiki-link:hover { color: var(--blood-bright); }
 .dossier .stamp { position: absolute; top: 3.2rem; right: 2rem; font-size: 1.1rem; }
 
 .footer {

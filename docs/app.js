@@ -93,13 +93,26 @@ function applyFilters() {
   syncUrl();
 }
 
+function mugshotHtml(r, large = false) {
+  const cls = `mugshot${large ? " mugshot-lg" : ""}`;
+  if (!r.photo) {
+    return `<div class="${cls} mugshot-empty" aria-hidden="true"><span>No photo<br>on file</span></div>`;
+  }
+  return `<div class="${cls}"><img src="${escapeHtml(r.photo)}" alt="Photo of ${escapeHtml(r.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('mugshot-empty');this.remove()"></div>`;
+}
+
 function cardHtml(r, terms) {
   const tilt = ((r.id * 37) % 7) - 3;
   return `
     <button class="card" style="--tilt:${tilt * 0.4}deg" data-id="${r.id}">
       <div class="case-no"><span>${caseNo(r)}</span><span>${escapeHtml(r.years)}</span></div>
-      <h2>${highlight(r.name, terms)}</h2>
-      <p class="meta">${highlight(r.country, terms)}</p>
+      <div class="card-head">
+        <div>
+          <h2>${highlight(r.name, terms)}</h2>
+          <p class="meta">${highlight(r.country, terms)}</p>
+        </div>
+        ${mugshotHtml(r)}
+      </div>
       <div class="counts">
         <div class="count"><strong>${escapeHtml(r.proven)}</strong><span>Proven</span></div>
         <div class="count"><strong>${escapeHtml(r.possible)}</strong><span>Possible</span></div>
@@ -131,14 +144,18 @@ function openDossier(id) {
   els.dialogBody.innerHTML = `
     <div class="classified">CLASSIFIED &middot; ${caseNo(r)}</div>
     <span class="stamp">${stampFor(r)}</span>
-    <h2>${escapeHtml(r.name)}</h2>
+    <div class="dossier-head">
+      ${mugshotHtml(r, true)}
+      <h2>${escapeHtml(r.name)}</h2>
+    </div>
     <dl>
       <dt>Jurisdiction</dt><dd>${escapeHtml(r.country)}</dd>
       <dt>Years active</dt><dd>${escapeHtml(r.years)}</dd>
       <dt>Proven victims</dt><dd>${escapeHtml(r.proven)}</dd>
       <dt>Possible victims</dt><dd>${escapeHtml(r.possible)}</dd>
     </dl>
-    <p class="report">${highlight(r.notes || "No further notes on file.", terms)}</p>`;
+    <p class="report">${highlight(r.notes || "No further notes on file.", terms)}</p>
+    ${r.wiki ? `<a class="wiki-link" href="${escapeHtml(r.wiki)}" target="_blank" rel="noopener">Read the full file on Wikipedia &rarr;</a>` : ""}`;
   els.dialog.showModal();
 }
 
