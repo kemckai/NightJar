@@ -1,0 +1,363 @@
+:root {
+  --bg: #0d0c0b;
+  --bg-2: #171513;
+  --paper: #e8dfc8;
+  --paper-dark: #d4c8a8;
+  --ink: #1f1a14;
+  --ink-soft: #4a4236;
+  --blood: #a3120f;
+  --blood-bright: #d11a14;
+  --tape: #f2c500;
+  --muted: #8a8174;
+  --typewriter: "Special Elite", "Courier New", monospace;
+  --mono: "Courier Prime", "Courier New", monospace;
+  --display: "Oswald", Impact, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top, rgba(163, 18, 15, 0.12), transparent 60%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0 2px, transparent 2px 4px),
+    var(--bg);
+  color: var(--paper);
+  font-family: var(--mono);
+}
+
+/* Crime scene tape */
+.tape {
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--tape);
+  color: #000;
+  font-family: var(--display);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  font-size: 0.95rem;
+  padding: 0.45rem 0;
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+.tape span {
+  display: inline-block;
+  animation: crawl 40s linear infinite;
+}
+.tape-top { transform: rotate(-1deg) scale(1.02); margin-top: 1rem; }
+.tape-bottom { transform: rotate(0.8deg) scale(1.02); margin-bottom: 1rem; }
+.tape-bottom span { animation-direction: reverse; }
+@keyframes crawl { to { transform: translateX(-50%); } }
+
+/* Header */
+.masthead {
+  text-align: center;
+  padding: 3rem 1rem 1.5rem;
+}
+.dept {
+  font-family: var(--typewriter);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.8rem;
+  margin: 0;
+}
+h1 {
+  font-family: var(--display);
+  font-size: clamp(2.6rem, 8vw, 5.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0.3rem 0;
+  line-height: 1;
+  text-shadow: 0 0 30px rgba(209, 26, 20, 0.25);
+}
+.blood {
+  color: var(--blood-bright);
+  position: relative;
+}
+.subtitle {
+  font-family: var(--typewriter);
+  color: var(--paper-dark);
+  margin: 0.5rem 0 0;
+}
+#total-count { color: var(--blood-bright); }
+
+/* Controls */
+.controls {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+}
+.label {
+  display: block;
+  font-family: var(--typewriter);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+#search {
+  width: 100%;
+  font-family: var(--typewriter);
+  font-size: 1.35rem;
+  padding: 0.9rem 1.1rem;
+  background: var(--bg-2);
+  color: var(--paper);
+  border: 2px solid #3a342c;
+  border-left: 6px solid var(--blood);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+#search:focus {
+  border-color: var(--blood);
+  box-shadow: 0 0 0 4px rgba(163, 18, 15, 0.2);
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-top: 1rem;
+}
+.field { flex: 1 1 170px; }
+.field select, .field input {
+  width: 100%;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  padding: 0.55rem 0.6rem;
+  background: var(--bg-2);
+  color: var(--paper);
+  border: 1px solid #3a342c;
+  outline: none;
+}
+.field select:focus, .field input:focus { border-color: var(--blood); }
+
+.btn {
+  font-family: var(--display);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  background: transparent;
+  color: var(--paper);
+  border: 2px solid var(--blood);
+  padding: 0.55rem 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn:hover { background: var(--blood); }
+
+.status {
+  max-width: 1200px;
+  margin: 0.5rem auto 0;
+  padding: 0 1.5rem;
+  font-family: var(--typewriter);
+  color: var(--muted);
+}
+
+/* Case-file cards */
+.grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.75rem;
+}
+.card {
+  position: relative;
+  background:
+    linear-gradient(transparent 0 calc(100% - 1px), rgba(0,0,0,0.04) 0) 0 0 / 100% 1.6rem,
+    linear-gradient(160deg, var(--paper), var(--paper-dark));
+  color: var(--ink);
+  padding: 1.6rem 1.4rem 1.3rem;
+  font-family: var(--mono);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.55);
+  cursor: pointer;
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: left;
+  border: none;
+  width: 100%;
+}
+.card:hover, .card:focus-visible {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.7), 0 0 0 2px var(--blood);
+  outline: none;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 70px;
+  height: 22px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: rgba(240, 230, 200, 0.55);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.case-no {
+  font-family: var(--typewriter);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.15em;
+  display: flex;
+  justify-content: space-between;
+}
+.card h2 {
+  font-family: var(--typewriter);
+  font-size: 1.3rem;
+  margin: 0.6rem 0 0.3rem;
+  line-height: 1.2;
+}
+.meta {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin: 0 0 0.8rem;
+}
+.counts {
+  display: flex;
+  gap: 1.2rem;
+  border-top: 1px dashed rgba(0,0,0,0.35);
+  border-bottom: 1px dashed rgba(0,0,0,0.35);
+  padding: 0.5rem 0;
+  margin-bottom: 0.8rem;
+}
+.count strong {
+  display: block;
+  font-family: var(--display);
+  font-size: 1.6rem;
+  color: var(--blood);
+  line-height: 1;
+}
+.count span {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+}
+.notes {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.stamp {
+  margin-left: auto;
+  align-self: center;
+  font-family: var(--display);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: var(--blood);
+  border: 3px double var(--blood);
+  padding: 0.15rem 0.5rem;
+  transform: rotate(12deg);
+  opacity: 0.75;
+  mix-blend-mode: multiply;
+}
+mark {
+  background: rgba(209, 26, 20, 0.25);
+  color: inherit;
+  padding: 0 1px;
+}
+
+.btn-more {
+  display: block;
+  margin: 0 auto 3rem;
+  font-size: 1.05rem;
+}
+
+/* Empty state */
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-family: var(--typewriter);
+  color: var(--muted);
+  padding: 4rem 1rem;
+  font-size: 1.2rem;
+}
+
+/* Dossier modal */
+.dossier {
+  max-width: 720px;
+  width: calc(100% - 2rem);
+  border: none;
+  padding: 0;
+  background: transparent;
+  color: var(--ink);
+}
+.dossier::backdrop {
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(3px);
+}
+.dossier[open] { animation: slide 0.25s ease-out; }
+@keyframes slide { from { transform: translateY(20px) rotate(-1deg); opacity: 0; } }
+#dossier-body {
+  background: linear-gradient(160deg, var(--paper), var(--paper-dark));
+  padding: 2.5rem 2.2rem 2rem;
+  font-family: var(--mono);
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+}
+.close {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.8rem;
+  z-index: 2;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--blood);
+  cursor: pointer;
+}
+.dossier h2 {
+  font-family: var(--typewriter);
+  font-size: 2rem;
+  margin: 0.5rem 0 1.2rem;
+}
+.dossier .classified {
+  font-family: var(--display);
+  color: var(--blood);
+  letter-spacing: 0.3em;
+  font-size: 0.85rem;
+  border-bottom: 2px solid var(--blood);
+  padding-bottom: 0.4rem;
+}
+.dossier dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.5rem 1.2rem;
+  margin: 0 0 1.4rem;
+}
+.dossier dt {
+  font-family: var(--typewriter);
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  padding-top: 0.15rem;
+}
+.dossier dd { margin: 0; font-weight: 700; }
+.dossier .report {
+  line-height: 1.6;
+  border-top: 1px dashed rgba(0,0,0,0.4);
+  padding-top: 1rem;
+}
+.dossier .stamp { position: absolute; top: 3.2rem; right: 2rem; font-size: 1.1rem; }
+
+.footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+  padding: 1rem;
+}
+.footer em { color: var(--paper-dark); }
+
+@media (prefers-reduced-motion: reduce) {
+  .tape span { animation: none; }
+  .card, .dossier[open] { transition: none; animation: none; }
+}

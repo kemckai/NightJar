@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NightJar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Oswald:wght@500;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="tape tape-top" aria-hidden="true">
+    <span>CRIME SCENE — DO NOT CROSS — CRIME SCENE — DO NOT CROSS — CRIME SCENE — DO NOT CROSS — CRIME SCENE — DO NOT CROSS — CRIME SCENE — DO NOT CROSS —</span>
+  </div>
+
+  <header class="masthead">
+    <p class="dept">Department of Records &middot; Homicide Division</p>
+    <h1>Night<span class="blood">Jar</span></h1>
+    <p class="subtitle">Classified dossiers on <span id="total-count">—</span> known serial offenders</p>
+  </header>
+
+  <section class="controls" aria-label="Search and filters">
+    <div class="search-wrap">
+      <label for="search" class="label">Search the files</label>
+      <input id="search" type="search" placeholder="Name, alias, location, method…" autocomplete="off" autofocus>
+    </div>
+    <div class="filters">
+      <label class="field">
+        <span class="label">Jurisdiction</span>
+        <select id="country"><option value="">All countries</option></select>
+      </label>
+      <label class="field">
+        <span class="label">Active from</span>
+        <select id="era"><option value="">Any era</option></select>
+      </label>
+      <label class="field">
+        <span class="label">Min. proven victims</span>
+        <input id="min-victims" type="number" min="0" placeholder="0">
+      </label>
+      <label class="field">
+        <span class="label">Sort by</span>
+        <select id="sort">
+          <option value="proven-desc">Proven victims ↓</option>
+          <option value="possible-desc">Possible victims ↓</option>
+          <option value="name-asc">Name A–Z</option>
+          <option value="start-asc">Earliest active</option>
+          <option value="start-desc">Most recent</option>
+        </select>
+      </label>
+      <button id="reset" type="button" class="btn">Clear</button>
+    </div>
+  </section>
+
+  <p id="status" class="status" aria-live="polite"></p>
+
+  <main id="results" class="grid"></main>
+  <button id="more" type="button" class="btn btn-more" hidden>Pull more files</button>
+
+  <dialog id="dossier" class="dossier">
+    <button class="close" type="button" aria-label="Close">&times;</button>
+    <div id="dossier-body"></div>
+  </dialog>
+
+  <footer class="footer">
+    Source: Wikipedia list of serial killers via Kaggle (<em>abdullahsamiir/serial-killers-wiki</em>, CC0).
+  </footer>
+
+  <div class="tape tape-bottom" aria-hidden="true">
+    <span>EVIDENCE — DO NOT CROSS — EVIDENCE — DO NOT CROSS — EVIDENCE — DO NOT CROSS — EVIDENCE — DO NOT CROSS — EVIDENCE — DO NOT CROSS — EVIDENCE —</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
