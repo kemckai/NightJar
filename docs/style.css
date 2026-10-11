@@ -270,6 +270,7 @@ mark {
   margin: 0 auto 3rem;
   font-size: 1.05rem;
 }
+.btn-more[hidden] { display: none; }
 
 /* Empty state */
 .empty {
